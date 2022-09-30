@@ -1,0 +1,29 @@
+{
+  "name": "control-asistencia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-fileupload": "^1.4.0",
+    "google-auth-library": "^8.4.0",
+    "googleapis": "^107.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "readline": "^1.3.0",
+    "socket.io": "^4.5.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.1",
+    "nodemon": "^2.0.19"
+  }
+}
