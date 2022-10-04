@@ -4,10 +4,6 @@ const { create, login, verifyToken, createSemester, getSemester, getPracticantes
 
 const router = express.Router()
 
-router.route('/:user')
-    .get(getAdmin)
-    .put(updateAdmin)
-
 router.route('/create')
     .post(create)
 
@@ -23,6 +19,10 @@ router.route('/verify')
 router.route('/semester')
     .get(getSemester)
     .post(createSemester)
+
+router.route('/:user')
+    .get(getAdmin)
+    .put(updateAdmin)
 
 router.route('/logs/:idSemestre')
     .get(getPracticantesBySemestre)
