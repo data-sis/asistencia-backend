@@ -7,7 +7,7 @@ const controller = {}
 
 const practicante = require('../models/practicante')
 
-const KEYFILEPATH = path.join(__dirname, '../public/key/key-361014-3676d2d1fb2a.json')
+const KEYFILEPATH = path.join(__dirname, '../public/key/asistencia-364501-58683626bb9e.json')
 
 const SCOPES = ['https://www.googleapis.com/auth/drive']
 
@@ -45,17 +45,14 @@ controller.update = async(req, res) => {
 
 async function createAndUploadFile(auth, foto) {
     const driveService = google.drive({version: 'v3', auth})
-
     let fileMetaData = {
         'name': foto.name,
-        'parents': ['1KDf3fMO-jKxuWu4AeVu-sQ0PfJ2Y1WtP']
+        'parents': ['1GuRV-On97dvJfUlrbduSk8LLvADTXr19']
     }
-
     let media = {
         mimeType: foto.mimeType,
         body: fs.createReadStream('./src/public/practicantes/' + foto.name)
     }
-
     let response = await driveService.files.create({
         resource: fileMetaData,
         media: media,
@@ -69,7 +66,6 @@ async function createAndUploadFile(auth, foto) {
         default:
             return response.errors
     }
-
 }
 
 controller.uploadDrive = async (req, res) => {
