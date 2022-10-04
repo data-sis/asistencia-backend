@@ -7,6 +7,14 @@ administrador.create = async (user) => {
     return await db.query('insert into administrador set ?', [user])
 }
 
+administrador.getAdmin = async(user) => {
+    return await db.query('select * from administrador where user = ?', [user])
+}
+
+administrador.updateAdmin = async(id, newAdmin) => {
+    return await db.query('update administrador set ? where id = ?', [newAdmin, id])
+}
+
 administrador.findUser = async(user) => {
     return await db.query('select * from administrador where user = ?', [user])
 }

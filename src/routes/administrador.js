@@ -1,8 +1,12 @@
 const express = require('express')
 
-const { create, login, verifyToken, createSemester, getSemester, getPracticantesBySemestre, getFechaPracticante } = require('../controllers/administradorController')
+const { create, login, verifyToken, createSemester, getSemester, getPracticantesBySemestre, getFechaPracticante, getAdmin, updateAdmin } = require('../controllers/administradorController')
 
 const router = express.Router()
+
+router.route('/:user')
+    .get(getAdmin)
+    .put(updateAdmin)
 
 router.route('/create')
     .post(create)

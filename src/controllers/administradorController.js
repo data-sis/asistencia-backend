@@ -25,6 +25,21 @@ controller.verifyToken = async (req, res) => {
     })
 }
 
+controller.getAdmin = async(req, res) => {
+    const {user} = req.params
+    const admin = await administrador.getAdmin(user)
+    res.json(admin)
+}
+
+controller.updateAdmin = async(req, res) => {
+    const id = req.params.user
+    const pass = await helpers.encrypt(req.body.pass)
+    const {nombre, cargo, user} = req.body
+    const newAdmin = {id, nombre, cargo, user, pass}
+    const query = await administrador.updateAdmin(id, newAdmin)
+    res.json(query)
+}
+
 controller.login = async(req, res) => {
     let {admin, pass} = req.body
     await administrador.findUser(admin)
