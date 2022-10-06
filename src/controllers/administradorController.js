@@ -11,7 +11,7 @@ controller.create = async (req, res) => {
     pass = await helpers.encrypt(pass)
     const newAdmin = { nombre, cargo, user, pass }
     const query = await administrador.create(newAdmin)
-    res.json({ "msg": "ok" })
+    res.json(query)
 }
 
 controller.verifyToken = async (req, res) => {
@@ -92,8 +92,8 @@ controller.getFechaPracticante = async(req, res) => {
     const {idPracticante} = req.params
     const data = await administrador.getFechaPracticante(idPracticante)
     let fecha = new Date(data[0].fecha)
-    const ahora = new Date()
-    ahora.setDate(ahora.getDate() + (14 * 7))
+    const ahora = new Date(data[data.length -1].fecha)
+    ahora.setDate(ahora.getDate())
     const semanas = []
     let cont = 0
     while(fecha < ahora) {

@@ -1,8 +1,11 @@
 const express = require('express')
 
-const { create, find, uploadDrive, assistance, semester, logs, getAll, deletePracticante, update } = require('../controllers/practicanteController')
+const { test, create, find, uploadDrive, assistance, semester, logs, getAll, deletePracticante, update } = require('../controllers/practicanteController')
 
 const router = express.Router()
+
+router.route('/test')
+    .get(test)
 
 router.route('/:id')
     .get()

@@ -4,6 +4,7 @@ const { create, login, verifyToken, createSemester, getSemester, getPracticantes
 
 const router = express.Router()
 
+
 router.route('/create')
     .post(create)
 

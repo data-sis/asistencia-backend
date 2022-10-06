@@ -1,6 +1,5 @@
 const path = require('path')
 
-const fs = require('fs');
 const {google} = require('googleapis');
 
 const controller = {}
@@ -11,10 +10,17 @@ const KEYFILEPATH = path.join(__dirname, '../public/key/asistencia-364501-586836
 
 const SCOPES = ['https://www.googleapis.com/auth/drive']
 
+const fs = require('fs')
+
 const auth = new google.auth.GoogleAuth({
     keyFile: KEYFILEPATH,
     scopes: SCOPES
 })
+
+controller.test = async(req, res) => {
+    const query = await practicante.test()
+    res.json(query.rows)
+}
 
 controller.deletePracticante = async(req, res) => {
     const {id} = req.params
@@ -68,15 +74,27 @@ async function createAndUploadFile(auth, foto) {
     }
 }
 
+const deleteFoto = async(foto) => {
+    try {
+        fs.unlinkSync(foto)
+        console.log('File removed')
+    } catch(err) {
+        console.error('Something wrong happened removing the file', err)
+    }
+}
+
 controller.uploadDrive = async (req, res) => {
     const {foto} = req.files
     const cant = await practicante.cant()
     foto.name = cant[0].cantidad + foto.name
 
-    const pathFile = path.join(__dirname,'../public/practicantes/' + foto.name)
+    const file = path.join(__dirname,'../public/practicantes/' + foto.name)
+
+    const pathFile = file
     await foto.mv(pathFile);
 
     const uploadFoto = await createAndUploadFile(auth, foto)
+    await deleteFoto(file)
     res.json({"foto": uploadFoto})
 }
 
@@ -84,7 +102,7 @@ controller.assistance = async(req, res) => {
     const {idPracticante} = req.body
     const registro = {idPracticante}
     const last = await practicante.getLastRegister(idPracticante)
-    registro.estado = (last.length === 0 || last[0]?.estado === 'Salida')?'Ingreso':'Salida'
+    registro.estado = (last.length === 0 || last[0].estado === 'Salida')?'Ingreso':'Salida'
     if(registro.estado === 'Salida') {
         const user = await practicante.getById(idPracticante)
         let hora = user[0].hora
